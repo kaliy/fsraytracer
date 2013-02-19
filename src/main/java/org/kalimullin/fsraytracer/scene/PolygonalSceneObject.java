@@ -19,6 +19,7 @@ public class PolygonalSceneObject implements SceneObject, Traceable {
     }
 
     public PolygonalSceneObject(String name, Set<Polygon> polygons) {
+        this.name = name;
         this.polygons = polygons;
     }
 
