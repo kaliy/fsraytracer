@@ -3,8 +3,8 @@ package org.kalimullin.fsraytracer.geometry;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Polygon that may contain many faces
@@ -12,16 +12,16 @@ import java.util.List;
 public class Polygon implements Traceable {
 
     public Polygon(Face face) {
-        List<Face> faceList1 = new ArrayList<>();
-        faceList1.add(face);
-        this.faceList = faceList1;
+        Set<Face> faceSet1 = new HashSet<>();
+        faceSet1.add(face);
+        this.faceSet = faceSet1;
     }
 
-    public Polygon(List<Face> faceList) {
-        this.faceList = faceList;
+    public Polygon(Set<Face> faceSet) {
+        this.faceSet = faceSet;
     }
 
-    private List<Face> faceList;
+    private Set<Face> faceSet;
 
     @Override
     public HitPoint getHitPoint(Ray ray) {
@@ -30,12 +30,12 @@ public class Polygon implements Traceable {
     }
 
     //<editor-fold desc="Getters and setters">
-    public List<Face> getFaceList() {
-        return faceList;
+    public Set<Face> getFaceSet() {
+        return faceSet;
     }
 
-    public void setFaceList(List<Face> faceList) {
-        this.faceList = faceList;
+    public void setFaceSet(Set<Face> faceSet) {
+        this.faceSet = faceSet;
     }
     //</editor-fold>
 
@@ -47,22 +47,22 @@ public class Polygon implements Traceable {
 
         Polygon polygon = (Polygon) o;
 
-        if (faceList != null ? !faceList.equals(polygon.faceList) : polygon.faceList != null) return false;
+        if (faceSet != null ? !faceSet.equals(polygon.faceSet) : polygon.faceSet != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return faceList != null ? faceList.hashCode() : 0;
+        return faceSet != null ? faceSet.hashCode() : 0;
     }
     //</editor-fold>
 
 
     @Override
     public String toString() {
-        return "Polygon{" +
-                "faceList=" + faceList +
-                '}';
+            return "Polygon{" +
+                    "faceList=" + faceSet +
+                    '}';
     }
 }

@@ -1,35 +1,35 @@
 package org.kalimullin.fsraytracer.scene;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Scene {
 
     public Scene() {
-        this(new ArrayList<SceneObject>(), Integer.MAX_VALUE, Integer.MAX_VALUE);
+        this(new HashSet<SceneObject>(), Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
-    public Scene(List<SceneObject> sceneObjects, int height, int width) {
+    public Scene(Set<SceneObject> sceneObjects, int height, int width) {
         this.sceneObjects = sceneObjects;
         this.height = height;
         this.width = width;
     }
 
-    private List<SceneObject> sceneObjects = new ArrayList<>();
+    private Set<SceneObject> sceneObjects = new HashSet<>();
     private int height;
     private int width;
 
-    public List<SceneObject> addSceneObject(SceneObject sceneObject) {
+    public Set<SceneObject> addSceneObject(SceneObject sceneObject) {
         getSceneObjects().add(sceneObject);
         return getSceneObjects();
     }
 
     //<editor-fold desc="Getters and setters">
-    public List<SceneObject> getSceneObjects() {
+    public Set<SceneObject> getSceneObjects() {
         return sceneObjects;
     }
 
-    public void setSceneObjects(List<SceneObject> sceneObjects) {
+    public void setSceneObjects(Set<SceneObject> sceneObjects) {
         this.sceneObjects = sceneObjects;
     }
 

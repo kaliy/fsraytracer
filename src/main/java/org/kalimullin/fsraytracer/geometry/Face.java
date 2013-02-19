@@ -3,17 +3,26 @@ package org.kalimullin.fsraytracer.geometry;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Triangle face than contains three edges
  */
 public class Face implements Traceable {
 
-    private List<Point> vertexList;
+    private Set<Point> vertexSet;
 
-    public Face(List<Point> vertexList) {
-        this.vertexList = vertexList;
+    public Face(Point point1, Point point2, Point point3) {
+        this(new HashSet<>(Arrays.asList(point1, point2, point3)));
+    }
+
+    public Face(Set<Point> vertexSet) {
+        if (vertexSet.size() != 3)
+            throw new IllegalArgumentException("Face should have three points");
+        else
+            this.vertexSet = vertexSet;
     }
 
     @Override
@@ -23,12 +32,12 @@ public class Face implements Traceable {
     }
 
     //<editor-fold desc="Getters and setters">
-    public List<Point> getVertexList() {
-        return vertexList;
+    public Set<Point> getVertexSet() {
+        return vertexSet;
     }
 
-    public void setVertexList(List<Point> vertexList) {
-        this.vertexList = vertexList;
+    public void setVertexSet(Set<Point> vertexSet) {
+        this.vertexSet = vertexSet;
     }
     //</editor-fold>
 
@@ -40,21 +49,21 @@ public class Face implements Traceable {
 
         Face face = (Face) o;
 
-        if (vertexList != null ? !vertexList.equals(face.vertexList) : face.vertexList != null) return false;
+        if (vertexSet != null ? !vertexSet.equals(face.vertexSet) : face.vertexSet != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return vertexList != null ? vertexList.hashCode() : 0;
+        return vertexSet != null ? vertexSet.hashCode() : 0;
     }
     //</editor-fold>
 
     @Override
     public String toString() {
         return "Face{" +
-                "vertexList=" + vertexList +
+                "vertexSet=" + vertexSet +
                 '}';
     }
 }

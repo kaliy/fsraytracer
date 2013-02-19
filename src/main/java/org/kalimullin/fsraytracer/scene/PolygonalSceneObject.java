@@ -5,8 +5,8 @@ import org.kalimullin.fsraytracer.geometry.Traceable;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Scene object that consists of many polygons
@@ -15,14 +15,14 @@ import java.util.List;
 public class PolygonalSceneObject implements SceneObject, Traceable {
 
     public PolygonalSceneObject(String name) {
-        this(name, new ArrayList<Polygon>());
+        this(name, new HashSet<Polygon>());
     }
 
-    public PolygonalSceneObject(String name, List<Polygon> polygons) {
+    public PolygonalSceneObject(String name, Set<Polygon> polygons) {
         this.polygons = polygons;
     }
 
-    private List<Polygon> polygons;
+    private Set<Polygon> polygons;
     private String name;
 
     @Override
@@ -31,11 +31,11 @@ public class PolygonalSceneObject implements SceneObject, Traceable {
     }
 
     //<editor-fold desc="Getters and setters">
-    public List<Polygon> getPolygons() {
+    public Set<Polygon> getPolygons() {
         return polygons;
     }
 
-    public void setPolygons(List<Polygon> polygons) {
+    public void setPolygons(Set<Polygon> polygons) {
         this.polygons = polygons;
     }
 
