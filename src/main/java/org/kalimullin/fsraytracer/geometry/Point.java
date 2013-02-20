@@ -16,6 +16,15 @@ public class Point {
     private double y;
     private double z;
 
+    /**
+     * Get distance from this point to another
+     */
+    public double getDistanceTo(Point point) {
+        return Math.sqrt(Math.pow(point.getX() - getX(), 2)
+                + Math.pow(point.getY() - getY(), 2)
+                + Math.pow(point.getZ() - getZ(), 2));
+    }
+
     //<editor-fold desc="Getters and setters">
     public double getX() {
         return x;
