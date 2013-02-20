@@ -25,6 +25,7 @@ public class SceneDataProvider {
     // TODO refactor this class (to factory with interface implementations)
     public SceneDataProvider(File file) {
         try {
+            logger.info("Initializing XML Parsing");
             this.document = new SceneParser().getParsedDocument(file);
         } catch (SAXException e) {
             logger.error("There was an error while parsing XML: {}", e);
@@ -32,6 +33,7 @@ public class SceneDataProvider {
     }
 
     private final static Logger logger = LoggerFactory.getLogger(SceneDataProvider.class);
+    //TODO switch to SAX parser. XPath is not necessary for this structure
     private XPathFactory xPathFactory = XPathFactory.newInstance();
     private XPath xpath = xPathFactory.newXPath();
     //TODO null handling
