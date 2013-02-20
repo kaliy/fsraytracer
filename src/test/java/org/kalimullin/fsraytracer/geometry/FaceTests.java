@@ -31,10 +31,11 @@ public class FaceTests extends Assert {
     @Test
     public void testHit() {
         Traceable face = new Face(new Point(10,0,0), new Point(0,10,0), new Point(1,1,0));
-        Ray hitRay = new Ray(new Point(5,5,3), new Point(4,4,2));
+        Ray hitRay = new Ray(new Point(5,5,3), new Point(-1,-1,-1));
         assertEquals(new HitPoint(new Point(2,2,0), Math.sqrt(27)), face.getHitPoint(hitRay));
-        Ray missRay = new Ray(new Point(5,5,3), new Point(6,8,12));
+        Ray missRay = new Ray(new Point(5,5,3), new Point(1,1,1));
         assertEquals(HitPoint.MISSED, face.getHitPoint(missRay));
+        Ray missRayButIntersectsPlane = new Ray(new Point(25,25,2), new Point(-1,-1,-1));
+        assertEquals(HitPoint.MISSED, face.getHitPoint(missRayButIntersectsPlane));
     }
-
 }

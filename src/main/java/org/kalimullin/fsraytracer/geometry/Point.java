@@ -43,8 +43,13 @@ public class Point {
         return new Point(getX() + x, getY() + y, getZ() + z);
     }
 
+    public Point getMultiplication(double multiplicator) {
+        return new Point(getX() * multiplicator, getY() * multiplicator, getZ() * multiplicator);
+    }
+
     /**
      * Dot product of this vector (represented by three coordinates) and another vector
+     *
      * @param point another vector
      * @return vector with
      */
@@ -54,11 +59,20 @@ public class Point {
     }
 
     public double getDotProduct(double x, double y, double z) {
-        return getX()*x + getY()*y + getZ()*z;
+        return getX() * x + getY() * y + getZ() * z;
+    }
+
+    public Point getCrossProduct(Point vector) {
+        return getCrossProduct(vector.getX(), vector.getY(), vector.getZ());
+    }
+
+    public Point getCrossProduct(double x, double y, double z) {
+        return new Point((getY() * z - getZ() * y), (getZ() * x - getX() * z), (getX() * y - getY() * x));
     }
 
     /**
-     * Normalize vector (mutating method)
+     * Normalize vector
+     *
      * @return normalized vector (this)
      */
     public Point getNormalizedVector() {

@@ -10,7 +10,7 @@ public class HitPoint {
     }
 
     // if the ray doesn't hit an object
-    public static final HitPoint MISSED = new HitPoint(null, -1);
+    public static final HitPoint MISSED = new HitPoint(new Point(), -1);
 
     private Point point;
     private double hitLength;
@@ -57,4 +57,13 @@ public class HitPoint {
         return result;
     }
     //</editor-fold>
+
+
+    @Override
+    public String toString() {
+        return "HitPoint{" +
+                "point=" + point +
+                ", hitLength=" + hitLength +
+                '}';
+    }
 }
