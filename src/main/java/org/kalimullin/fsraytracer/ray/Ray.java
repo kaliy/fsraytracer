@@ -12,10 +12,6 @@ public class Ray {
     private Point originPoint;
     private Point directionVector;
 
-    public Point getDirectionalVector() {
-        return directionVector.getSubtraction(originPoint);
-    }
-
     //<editor-fold desc="Getters and setters">
     public Point getOriginPoint() {
         return originPoint;
@@ -57,4 +53,13 @@ public class Ray {
         return result;
     }
     //</editor-fold>
+
+
+    @Override
+    public String toString() {
+        return "Ray{" +
+                "originPoint=" + originPoint +
+                ", directionVector=" + directionVector +
+                '}';
+    }
 }

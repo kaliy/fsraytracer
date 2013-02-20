@@ -3,9 +3,7 @@ package org.kalimullin.fsraytracer.geometry;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Triangle face than contains three edges
@@ -28,7 +26,44 @@ public class Face implements Traceable {
     @Override
     public HitPoint getHitPoint(Ray ray) {
         //TODO implement it
-        throw new UnsupportedOperationException("Not implemented yet");
+        return getPlaneIntersection(ray);
+    }
+
+
+    /**
+     * Calculating normal to the face
+     * @return normalized normal
+     */
+    private Point getNormalizedNormal() {
+        List<Point> vList = new ArrayList<>(vertexSet);
+        return vList.get(1).getSubtraction(vList.get(0))
+                .getCrossProduct(vList.get(2).getSubtraction(vList.get(0)))
+                .getNormalizedVector();
+    }
+
+    /**
+     * Calculating plane coefficient (D in canonical plane equation - Ax+By+Cz+D=0)
+     */
+    private double getPlaneCoefficient() {
+        return getNormalizedNormal().getDotProduct(vertexSet.iterator().next());
+    }
+
+    /**
+     * Calculating ray and plane (formed by triangle) intersection point
+     * @param ray
+     * @return HitPoint
+     */
+    private HitPoint getPlaneIntersection(Ray ray) {
+        double rayDirectionAndNormalDotProduct = getNormalizedNormal().getDotProduct(ray.getDirectionVector());
+        if (0 != rayDirectionAndNormalDotProduct) {
+            double distanceCoefficient = -1 * (getPlaneCoefficient() + ray.getOriginPoint().getDotProduct(getNormalizedNormal()))
+                    / ray.getDirectionVector().getDotProduct(getNormalizedNormal());
+            if (0 > distanceCoefficient)
+                return HitPoint.MISSED;
+            Point hitPoint = ray.getOriginPoint().getAddition(ray.getDirectionVector().getMultiplication(distanceCoefficient));
+            return new HitPoint(hitPoint, ray.getOriginPoint().getDistanceTo(hitPoint));
+        }
+        return HitPoint.MISSED;
     }
 
     //<editor-fold desc="Getters and setters">
