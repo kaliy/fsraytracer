@@ -20,4 +20,17 @@ public class PointTests extends Assert {
         assertEquals(Math.sqrt(50), point1.getDistanceTo(point2), 0.00001);
     }
 
+    @Test
+    public void testSubtraction() {
+        Point point = new Point(6,8,9);
+        assertEquals(new Point(4,5,5), point.getSubtraction(2,3,4));
+        assertEquals(new Point(4,5,5), point.getSubtraction(new Point(2,3,4)));
+    }
+
+    @Test
+    public void testAddition() {
+        Point point = new Point(6,8,9);
+        assertEquals(new Point(8,11,13), point.getAddition(2,3,4));
+        assertEquals(new Point(8,11,13), point.getAddition(new Point(2,3,4)));
+    }
 }
