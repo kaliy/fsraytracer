@@ -64,7 +64,7 @@ public class SceneDataProvider {
         } catch (XPathExpressionException e) {
             logger.error("Wrong XPath expression:", e);
         }
-
+        logger.info("SceneObjects have been parsed");
         return sceneObjectSet;
     }
 
@@ -80,6 +80,7 @@ public class SceneDataProvider {
             logger.trace("Points NodeList size: {}", points.getLength());
             for (int pointsIndex = 0; pointsIndex < points.getLength(); pointsIndex++) {
                 Node pointNode = points.item(pointsIndex);
+                pointNode.getParentNode().removeChild(pointNode);
                 int id = ((Number)xpath.evaluate("id", pointNode, XPathConstants.NUMBER)).intValue();
                 double x = ((Number)xpath.evaluate("x", pointNode, XPathConstants.NUMBER)).doubleValue();
                 double y = ((Number)xpath.evaluate("y", pointNode, XPathConstants.NUMBER)).doubleValue();
@@ -92,6 +93,7 @@ public class SceneDataProvider {
         } catch (XPathExpressionException e) {
             logger.error("Wrong XPath expression:", e);
         }
+        logger.info("Points have been parsed");
         return pointMap;
     }
 
@@ -108,6 +110,7 @@ public class SceneDataProvider {
             logger.trace("Faces NodeList size: {}", faces.getLength());
             for (int facesIndex = 0; facesIndex < faces.getLength(); facesIndex++) {
                 Node faceNode = faces.item(facesIndex);
+                faceNode.getParentNode().removeChild(faceNode);
                 int id = ((Number)xpath.evaluate("id", faceNode, XPathConstants.NUMBER)).intValue();
                 int pointsCount = ((Number)xpath.evaluate("count(point-id)", faceNode, XPathConstants.NUMBER)).intValue();
                 Set<Point> pointSet = new HashSet<>();
@@ -124,6 +127,7 @@ public class SceneDataProvider {
         } catch (XPathExpressionException e) {
             logger.error("Wrong XPath expression:", e);
         }
+        logger.info("Faces have been parsed");
         return faceMap;
     }
 
