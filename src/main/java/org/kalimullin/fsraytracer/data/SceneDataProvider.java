@@ -3,6 +3,7 @@ package org.kalimullin.fsraytracer.data;
 import org.kalimullin.fsraytracer.geometry.Face;
 import org.kalimullin.fsraytracer.geometry.Point;
 import org.kalimullin.fsraytracer.geometry.Polygon;
+import org.kalimullin.fsraytracer.scene.PolygonalSceneObject;
 import org.kalimullin.fsraytracer.scene.SceneObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,9 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * XML SceneDataProvider
+ */
 public class SceneDataProvider {
 
     // TODO refactor this class (to factory with interface implementations)
@@ -32,6 +36,37 @@ public class SceneDataProvider {
     private XPath xpath = xPathFactory.newXPath();
     //TODO null handling
     private Document document = null;
+
+    /**
+     * Parsing scene objects from XML.
+     * @return List<SceneObject> with PolygonalSceneObject
+     */
+    public Set<SceneObject> getSceneObjects() {
+        Set<SceneObject> sceneObjectSet = new HashSet<>();
+        Map<Integer, Polygon> polygonMap = getPolygons();
+        try {
+            XPathExpression xPathExpression = xpath.compile("/scene/objects/object");
+            NodeList objects = (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
+            logger.trace("Objects NodeList size: {}", objects.getLength());
+            for (int facesIndex = 0; facesIndex < objects.getLength(); facesIndex++) {
+                Node faceNode = objects.item(facesIndex);
+                String name = (String)xpath.evaluate("name", faceNode, XPathConstants.STRING);
+                int polygonsCount = ((Number)xpath.evaluate("count(face-id)", faceNode, XPathConstants.NUMBER)).intValue();
+                Set<Polygon> polygonSet = new HashSet<>();
+                for(int polygonIndex = 1; polygonIndex <= polygonsCount; polygonIndex++) {
+                    polygonSet.add(polygonMap.get(((Number) xpath.evaluate("(face-id)[" + polygonIndex + "]",
+                            faceNode, XPathConstants.NUMBER)).intValue()));
+                }
+                PolygonalSceneObject polygonalSceneObject = new PolygonalSceneObject(name, polygonSet);
+                sceneObjectSet.add(polygonalSceneObject);
+                logger.debug("Added SceneObject[{}]: {}", name , polygonalSceneObject);
+            }
+        } catch (XPathExpressionException e) {
+            logger.error("Wrong XPath expression:", e);
+        }
+
+        return sceneObjectSet;
+    }
 
     /**
      * Parsing points list
