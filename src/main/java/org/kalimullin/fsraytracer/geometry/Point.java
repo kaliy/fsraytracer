@@ -16,6 +16,8 @@ public class Point {
     private double y;
     private double z;
 
+    public static final Point UNEXISTED_POINT = new Point(Double.NaN, Double.NaN, Double.NaN);
+
     /**
      * Get distance from this point to another
      */
@@ -23,6 +25,51 @@ public class Point {
         return Math.sqrt(Math.pow(point.getX() - getX(), 2)
                 + Math.pow(point.getY() - getY(), 2)
                 + Math.pow(point.getZ() - getZ(), 2));
+    }
+
+    public Point getSubtraction(Point point) {
+        return getSubtraction(point.getX(), point.getY(), point.getZ());
+    }
+
+    public Point getSubtraction(double x, double y, double z) {
+        return new Point(getX() - x, getY() - y, getZ() - z);
+    }
+
+    public Point getAddition(Point point) {
+        return getAddition(point.getX(), point.getY(), point.getZ());
+    }
+
+    public Point getAddition(double x, double y, double z) {
+        return new Point(getX() + x, getY() + y, getZ() + z);
+    }
+
+    /**
+     * Dot product of this vector (represented by three coordinates) and another vector
+     * @param point another vector
+     * @return vector with
+     */
+    //TODO extract these methods to another class (that should be ancestor, smth like Vector3)
+    public double getDotProduct(Point point) {
+        return getDotProduct(point.getX(), point.getY(), point.getZ());
+    }
+
+    public double getDotProduct(double x, double y, double z) {
+        return getX()*x + getY()*y + getZ()*z;
+    }
+
+    /**
+     * Normalize vector (mutating method)
+     * @return normalized vector (this)
+     */
+    public Point getNormalizedVector() {
+        double norm = Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2) + Math.pow(getZ(), 2));
+        Point point = new Point();
+        if (norm != 0) {
+            point.setX(getX() / norm);
+            point.setY(getY() / norm);
+            point.setZ(getZ() / norm);
+        }
+        return point;
     }
 
     //<editor-fold desc="Getters and setters">
