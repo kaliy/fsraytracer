@@ -38,6 +38,6 @@ public class SceneDataProviderTests extends Assert {
 
     @Test
     public void testParsingData() {
-        assertEquals(sceneObjectSet, new SceneDataProvider(new File("src/test/resources/simpleScene.xml")));
+        assertEquals(sceneObjectSet, new SceneDataProvider(new File("src/test/resources/simpleScene.xml")).getSceneObjects());
     }
 }
