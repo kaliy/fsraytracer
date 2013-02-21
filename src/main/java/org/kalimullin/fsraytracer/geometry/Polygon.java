@@ -3,8 +3,7 @@ package org.kalimullin.fsraytracer.geometry;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Polygon that may contain many faces
@@ -26,7 +25,12 @@ public class Polygon implements Traceable {
     @Override
     public HitPoint getHitPoint(Ray ray) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet");
+        List<HitPoint> hitPointList = new ArrayList<>(faceSet.size());
+        for (Face face: getFaceSet()) {
+            hitPointList.add(face.getHitPoint(ray));
+        }
+        Collections.sort(hitPointList);
+        return hitPointList.get(0);
     }
 
     //<editor-fold desc="Getters and setters">
