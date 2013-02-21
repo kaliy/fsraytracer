@@ -1,5 +1,7 @@
 package org.kalimullin.fsraytracer.geometry;
 
+import com.google.common.math.DoubleMath;
+
 public class Point {
 
     public Point() {
@@ -136,15 +138,16 @@ public class Point {
 
         Point point = (Point) o;
 
-        if (Double.compare(point.x, x) != 0) return false;
-        if (Double.compare(point.y, y) != 0) return false;
-        if (Double.compare(point.z, z) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.x, x, 0.00001) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.y, y, 0.00001) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.z, z, 0.00001) != 0) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
+        //TODO double check all hash methods
         int result;
         long temp;
         temp = x != +0.0d ? Double.doubleToLongBits(x) : 0L;

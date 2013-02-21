@@ -11,7 +11,7 @@ import java.util.*;
  * Scene object that consists of many polygons
  * @see org.kalimullin.fsraytracer.geometry.Polygon
  */
-public class PolygonalSceneObject implements SceneObject, Traceable {
+public class PolygonalSceneObject implements SceneObject {
 
     public PolygonalSceneObject(String name) {
         this(name, new HashSet<Polygon>());
