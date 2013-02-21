@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RayTracer {
     private static RayTracer ourInstance = new RayTracer();
@@ -17,6 +19,8 @@ public class RayTracer {
     public static RayTracer getInstance() {
         return ourInstance;
     }
+
+    ExecutorService executorService = Executors.newFixedThreadPool(100);
 
     private RayTracer() {
     }
@@ -34,9 +38,7 @@ public class RayTracer {
             String line;
             while ((line = inputStreamReader.readLine()) != null) {
                 try {
-                    Ray ray = Ray.getRayFromString(line);
-                    HitData hitData = getScene().traceRay(Ray.getRayFromString(line));
-                    System.out.println(ray.getId() + ":" + (!HitData.MISS.equals(hitData) ? hitData.getSceneObject().getName() : ""));
+                    traceRay(Ray.getRayFromString(line));
                 } catch (Exception e) {
                     logger.error("Exception while execution:", e);
                 }
@@ -45,6 +47,16 @@ public class RayTracer {
             //TODO better error handling
             logger.error("IOException while listening stdin");
         }
+    }
+
+    private void traceRay(final Ray ray) {
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                HitData hitData = getScene().traceRay(ray);
+                System.out.println(ray.getId() + ":" + (!HitData.MISS.equals(hitData) ? hitData.getSceneObject().getName() : ""));
+            }
+        });
     }
 
 }
