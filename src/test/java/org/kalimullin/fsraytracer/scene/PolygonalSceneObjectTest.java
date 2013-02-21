@@ -31,15 +31,12 @@ public class PolygonalSceneObjectTest extends Assert {
 
     @Test
     public void testHitPoints() {
-        Ray xyzRay = new Ray(new Point(20, 20, 20), new Point(-1, -1, -1));
-        assertEquals(new HitPoint(new Point(10/3, 10/3, 10/3), Math.sqrt(Math.pow(20 - 10 / 3, 2) * 3)),
-                GeometryTestData.PYRAMID.getHitPoint(xyzRay));
         Ray xyRay = new Ray(new Point(3, 3, -5), new Point(0, 0, 2));
         assertEquals(new HitPoint(new Point(3,3,0), 5), GeometryTestData.PYRAMID.getHitPoint(xyRay));
         Ray yzRay = new Ray(new Point(-10, 3, 3), new Point(2, 0, 0));
         assertEquals(new HitPoint(new Point(0, 3, 3), 10), GeometryTestData.PYRAMID.getHitPoint(yzRay));
         Ray xzRay = new Ray(new Point(3, -5, 3), new Point(0, 2, 0));
-        assertEquals(new HitPoint(new Point(3, 0, 3), 5), GeometryTestData.PYRAMID.getHitPoint(xyRay));
+        assertEquals(new HitPoint(new Point(3, 0, 3), 5), GeometryTestData.PYRAMID.getHitPoint(xzRay));
     }
 
     @Test
