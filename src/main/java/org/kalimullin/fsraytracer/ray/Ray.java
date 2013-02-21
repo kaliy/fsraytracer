@@ -4,29 +4,29 @@ import org.kalimullin.fsraytracer.geometry.Point;
 
 public class Ray {
 
-    public Ray(Point initialPoint, Point directionPoint) {
-        this.initialPoint = initialPoint;
-        this.directionPoint = directionPoint;
+    public Ray(Point originPoint, Point directionVector) {
+        this.originPoint = originPoint;
+        this.directionVector = directionVector;
     }
 
-    private Point initialPoint;
-    private Point directionPoint;
+    private Point originPoint;
+    private Point directionVector;
 
     //<editor-fold desc="Getters and setters">
-    public Point getInitialPoint() {
-        return initialPoint;
+    public Point getOriginPoint() {
+        return originPoint;
     }
 
-    public void setInitialPoint(Point initialPoint) {
-        this.initialPoint = initialPoint;
+    public void setOriginPoint(Point originPoint) {
+        this.originPoint = originPoint;
     }
 
-    public Point getDirectionPoint() {
-        return directionPoint;
+    public Point getDirectionVector() {
+        return directionVector;
     }
 
-    public void setDirectionPoint(Point directionPoint) {
-        this.directionPoint = directionPoint;
+    public void setDirectionVector(Point directionVector) {
+        this.directionVector = directionVector;
     }
     //</editor-fold>
 
@@ -39,18 +39,27 @@ public class Ray {
 
         Ray ray = (Ray) o;
 
-        if (directionPoint != null ? !directionPoint.equals(ray.directionPoint) : ray.directionPoint != null)
+        if (directionVector != null ? !directionVector.equals(ray.directionVector) : ray.directionVector != null)
             return false;
-        if (initialPoint != null ? !initialPoint.equals(ray.initialPoint) : ray.initialPoint != null) return false;
+        if (originPoint != null ? !originPoint.equals(ray.originPoint) : ray.originPoint != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = initialPoint != null ? initialPoint.hashCode() : 0;
-        result = 31 * result + (directionPoint != null ? directionPoint.hashCode() : 0);
+        int result = originPoint != null ? originPoint.hashCode() : 0;
+        result = 31 * result + (directionVector != null ? directionVector.hashCode() : 0);
         return result;
     }
     //</editor-fold>
+
+
+    @Override
+    public String toString() {
+        return "Ray{" +
+                "originPoint=" + originPoint +
+                ", directionVector=" + directionVector +
+                '}';
+    }
 }

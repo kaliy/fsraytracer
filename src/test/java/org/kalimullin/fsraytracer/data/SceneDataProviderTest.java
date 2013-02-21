@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SceneDataProviderTests extends Assert {
+public class SceneDataProviderTest extends Assert {
     private Set<SceneObject> sceneObjectSet;
 
     @Before
