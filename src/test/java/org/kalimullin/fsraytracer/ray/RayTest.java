@@ -13,7 +13,7 @@ public class RayTest extends Assert {
 
     @Test
     public void testParsingString() {
-        assertEquals(new Ray(new Point(1,5,6), new Point(2,5,7), 17), Ray.getRayFromString("17;1,5,6;2,5,7"));
+        assertEquals(new Ray(new Point(-1,-5,-6), new Point(2,5,7), 17), Ray.getRayFromString("17;-1,-5,-6;2,5,7"));
     }
 
     @Test
