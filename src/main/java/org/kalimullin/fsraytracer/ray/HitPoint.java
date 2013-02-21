@@ -1,5 +1,6 @@
 package org.kalimullin.fsraytracer.ray;
 
+import com.google.common.math.DoubleMath;
 import org.kalimullin.fsraytracer.geometry.Point;
 
 public class HitPoint implements Comparable {
@@ -20,13 +21,8 @@ public class HitPoint implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
-        //TODO fuzzy compare if it's necessary
         HitPoint temp = (HitPoint)o;
-        if (this.getHitLength() > temp.getHitLength())
-            return 1;
-        if (this.getHitLength() < temp.getHitLength())
-            return -1;
-        return 0;
+        return DoubleMath.fuzzyCompare(this.getHitLength(), temp.getHitLength(), 0.00001);
     }
 
     //<editor-fold desc="Getters and setters">
@@ -55,7 +51,7 @@ public class HitPoint implements Comparable {
 
         HitPoint hitPoint = (HitPoint) o;
 
-        if (Double.compare(hitPoint.hitLength, hitLength) != 0) return false;
+        if (DoubleMath.fuzzyCompare(hitPoint.hitLength, hitLength, 0.00001) != 0) return false;
         if (!point.equals(hitPoint.point)) return false;
 
         return true;
