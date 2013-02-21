@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 
-public class SceneParserTests extends Assert {
+public class SceneParserTest extends Assert {
 
     private SceneParser sceneParser;
     private File invalidXml;

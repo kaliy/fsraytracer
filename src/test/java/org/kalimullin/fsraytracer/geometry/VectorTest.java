@@ -3,7 +3,7 @@ package org.kalimullin.fsraytracer.geometry;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class VectorTests extends Assert {
+public class VectorTest extends Assert {
     @Test
     public void testNormalize() {
         Point vector = new Point(1, 4, 2);
