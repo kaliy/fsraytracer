@@ -59,4 +59,10 @@ public class FaceTest extends Assert {
         Ray missRayButIntersectsPlane = new Ray(new Point(25,25,2), new Point(-1,-1,-1));
         assertEquals(HitPoint.MISSED, faceToTest.getHitPoint(missRayButIntersectsPlane));
     }
+
+    @Test
+    public void testParallelPlaneAndRay() {
+        Ray parallelRay = new Ray(new Point(10,25,1), new Point(4,3,0));
+        assertEquals(HitPoint.MISSED, faceToTest.getHitPoint(parallelRay));
+    }
 }
