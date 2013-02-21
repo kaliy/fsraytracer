@@ -20,6 +20,11 @@ public class HitPoint implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
+        HitPoint temp = (HitPoint)o;
+        if (this.getHitLength() < temp.getHitLength())
+            return -1;
+        if (this.getHitLength() > temp.getHitLength())
+            return 1;
         return 0;
     }
 
