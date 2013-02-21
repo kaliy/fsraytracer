@@ -2,7 +2,7 @@ package org.kalimullin.fsraytracer.ray;
 
 import org.kalimullin.fsraytracer.geometry.Point;
 
-public class HitPoint {
+public class HitPoint implements Comparable {
 
     public HitPoint(Point point, double hitLength) {
         this.point = point;
@@ -14,6 +14,14 @@ public class HitPoint {
 
     private Point point;
     private double hitLength;
+
+    /**
+     * Compares hitLength between two point.
+     */
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 
     //<editor-fold desc="Getters and setters">
     public Point getPoint() {
@@ -66,4 +74,5 @@ public class HitPoint {
                 ", hitLength=" + hitLength +
                 '}';
     }
+
 }
