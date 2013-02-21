@@ -10,7 +10,7 @@ public class HitPoint implements Comparable {
     }
 
     // if the ray doesn't hit an object
-    public static final HitPoint MISSED = new HitPoint(new Point(), -1);
+    public static final HitPoint MISSED = new HitPoint(new Point(), Double.POSITIVE_INFINITY);
 
     private Point point;
     private double hitLength;
@@ -21,10 +21,10 @@ public class HitPoint implements Comparable {
     @Override
     public int compareTo(Object o) {
         HitPoint temp = (HitPoint)o;
-        if (this.getHitLength() < temp.getHitLength())
-            return -1;
         if (this.getHitLength() > temp.getHitLength())
             return 1;
+        if (this.getHitLength() < temp.getHitLength())
+            return -1;
         return 0;
     }
 
