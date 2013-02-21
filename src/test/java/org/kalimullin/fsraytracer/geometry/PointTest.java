@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.kalimullin.fsraytracer.GeometryData;
 
-public class PointTests extends Assert {
+public class PointTest extends Assert {
     @Test
     public void testEquals() {
         assertEquals(GeometryData.POINT_ZERO, new Point(0,0,0));
@@ -30,7 +30,7 @@ public class PointTests extends Assert {
     @Test
     public void testAddition() {
         Point point = new Point(6,8,9);
-        assertEquals(new Point(8,11,13), point.getAddition(2,3,4));
-        assertEquals(new Point(8,11,13), point.getAddition(new Point(2,3,4)));
+        assertEquals(new Point(8,11,13), point.getAddition(2, 3, 4));
+        assertEquals(new Point(8,11,13), point.getAddition(new Point(2, 3, 4)));
     }
 }

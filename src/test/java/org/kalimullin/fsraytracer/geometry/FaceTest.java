@@ -12,7 +12,7 @@ import org.kalimullin.fsraytracer.ray.Ray;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class FaceTests extends Assert {
+public class FaceTest extends Assert {
 
     Traceable faceToTest;
 

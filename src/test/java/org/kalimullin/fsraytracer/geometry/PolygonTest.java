@@ -7,7 +7,7 @@ import org.kalimullin.fsraytracer.GeometryData;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class PolygonTests extends Assert {
+public class PolygonTest extends Assert {
     @Test
     public void testEquals() {
         assertEquals(new Polygon(new Face(new HashSet<>(Arrays.asList(
