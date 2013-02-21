@@ -33,15 +33,16 @@ public class HitPointTest extends Assert {
         HitPoint hitPointTwentyTwo = new HitPoint(new Point(0,0,1), 22);
         hitPointList.add(hitPointNine);
         hitPointList.add(hitPointTwenty);
+        hitPointList.add(HitPoint.MISSED);
         hitPointList.add(hitPointTwentyTwo);
         hitPointList.add(hitPointTen);
         hitPointList.add(hitPointSeven);
-        assertEquals(5, hitPointList.size());
         Collections.sort(hitPointList);
         assertEquals(hitPointList.get(0), hitPointSeven);
         assertEquals(hitPointList.get(1), hitPointNine);
         assertEquals(hitPointList.get(2), hitPointTen);
         assertEquals(hitPointList.get(3), hitPointTwenty);
         assertEquals(hitPointList.get(4), hitPointTwentyTwo);
+        assertEquals(hitPointList.get(5), HitPoint.MISSED);
     }
 }
