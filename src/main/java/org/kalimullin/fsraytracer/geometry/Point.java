@@ -97,9 +97,9 @@ public class Point {
         if (3 != coordinates.length)
             throw new IllegalArgumentException("String must be following format: \"x,y,z\"");
         return new Point(
-                Integer.parseInt(coordinates[0]),
-                Integer.parseInt(coordinates[1]),
-                Integer.parseInt(coordinates[2])
+                Double.parseDouble(coordinates[0]),
+                Double.parseDouble(coordinates[1]),
+                Double.parseDouble(coordinates[2])
         );
     }
 
