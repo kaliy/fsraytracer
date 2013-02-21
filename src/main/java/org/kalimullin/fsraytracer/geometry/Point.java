@@ -1,5 +1,7 @@
 package org.kalimullin.fsraytracer.geometry;
 
+import com.google.common.math.DoubleMath;
+
 public class Point {
 
     public Point() {
@@ -86,6 +88,22 @@ public class Point {
         return point;
     }
 
+    /**
+     * Creates point from unparsed string. {@code Point.getPointFromString("0,1,2")} equals {@code new Point(0,1,2)}
+     * @param string format "x,y,z".
+     */
+    public static Point getPointFromString(String string) {
+        String[] coordinates = string.split(",");
+        if (3 != coordinates.length)
+            throw new IllegalArgumentException("String must be following format: \"x,y,z\"");
+        return new Point(
+                Integer.parseInt(coordinates[0]),
+                Integer.parseInt(coordinates[1]),
+                Integer.parseInt(coordinates[2])
+        );
+    }
+
+
     //<editor-fold desc="Getters and setters">
     public double getX() {
         return x;
@@ -120,15 +138,16 @@ public class Point {
 
         Point point = (Point) o;
 
-        if (Double.compare(point.x, x) != 0) return false;
-        if (Double.compare(point.y, y) != 0) return false;
-        if (Double.compare(point.z, z) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.x, x, 0.00001) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.y, y, 0.00001) != 0) return false;
+        if (DoubleMath.fuzzyCompare(point.z, z, 0.00001) != 0) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
+        //TODO double check all hash methods
         int result;
         long temp;
         temp = x != +0.0d ? Double.doubleToLongBits(x) : 0L;
