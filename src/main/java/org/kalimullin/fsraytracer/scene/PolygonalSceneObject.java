@@ -43,6 +43,7 @@ public class PolygonalSceneObject implements SceneObject, Traceable {
         this.polygons = polygons;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -86,6 +86,22 @@ public class Point {
         return point;
     }
 
+    /**
+     * Creates point from unparsed string. {@code Point.getPointFromString("0,1,2")} equals {@code new Point(0,1,2)}
+     * @param string format "x,y,z".
+     */
+    public static Point getPointFromString(String string) {
+        String[] coordinates = string.split(",");
+        if (3 != coordinates.length)
+            throw new IllegalArgumentException("String must be following format: \"x,y,z\"");
+        return new Point(
+                Integer.parseInt(coordinates[0]),
+                Integer.parseInt(coordinates[1]),
+                Integer.parseInt(coordinates[2])
+        );
+    }
+
+
     //<editor-fold desc="Getters and setters">
     public double getX() {
         return x;
