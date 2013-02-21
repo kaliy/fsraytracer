@@ -32,7 +32,7 @@ public class SceneParser {
      */
     private void validate(File file) throws SAXException {
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(new File("src/main/resources/scene.xsd"));
+        Schema schema = sf.newSchema(new File("scene.xsd"));
         Validator validator = schema.newValidator();
         try {
             // Actually double-creating StreamSource can cause performance problems while parsing really big files.
