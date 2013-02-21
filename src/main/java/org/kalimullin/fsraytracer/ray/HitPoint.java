@@ -20,6 +20,7 @@ public class HitPoint implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
+        //TODO fuzzy compare if it's necessary
         HitPoint temp = (HitPoint)o;
         if (this.getHitLength() > temp.getHitLength())
             return 1;

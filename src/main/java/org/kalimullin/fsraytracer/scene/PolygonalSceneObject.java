@@ -5,8 +5,7 @@ import org.kalimullin.fsraytracer.geometry.Traceable;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Scene object that consists of many polygons
@@ -28,7 +27,11 @@ public class PolygonalSceneObject implements SceneObject, Traceable {
 
     @Override
     public HitPoint getHitPoint(Ray ray) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        List<HitPoint> hitPointList = new ArrayList<>(getPolygons().size());
+        for (Polygon polygon: getPolygons())
+            hitPointList.add(polygon.getHitPoint(ray));
+        Collections.sort(hitPointList);
+        return hitPointList.get(0);
     }
 
     //<editor-fold desc="Getters and setters">
