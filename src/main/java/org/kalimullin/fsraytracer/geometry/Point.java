@@ -2,6 +2,9 @@ package org.kalimullin.fsraytracer.geometry;
 
 import com.google.common.math.DoubleMath;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 public class Point {
 
     public Point() {
@@ -147,15 +150,12 @@ public class Point {
 
     @Override
     public int hashCode() {
-        //TODO double check all hash methods
-        int result;
-        long temp;
-        temp = x != +0.0d ? Double.doubleToLongBits(x) : 0L;
-        result = (int) (temp ^ (temp >>> 32));
-        temp = y != +0.0d ? Double.doubleToLongBits(y) : 0L;
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = z != +0.0d ? Double.doubleToLongBits(z) : 0L;
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        //TODO move precision to another class
+        System.out.println(this);
+        MathContext mathContext = new MathContext(0);
+        int result = new BigDecimal(x, mathContext).hashCode();
+        result = 31 * result + new BigDecimal(y, mathContext).hashCode();
+        result = 31 * result + new BigDecimal(z, mathContext).hashCode();
         return result;
     }
     //</editor-fold>

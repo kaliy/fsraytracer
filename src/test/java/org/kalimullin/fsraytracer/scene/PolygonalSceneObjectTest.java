@@ -9,8 +9,8 @@ import org.kalimullin.fsraytracer.geometry.Polygon;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PolygonalSceneObjectTest extends Assert {
 
@@ -20,10 +20,10 @@ public class PolygonalSceneObjectTest extends Assert {
 
     @Test
     public void testEquals() {
-        Set<Polygon> polygonSet = new HashSet<>();
+        List<Polygon> polygonSet = new ArrayList<>();
+        polygonSet.add(GeometryTestData.XZ_PYRAMID_POLYGON);
         polygonSet.add(GeometryTestData.XY_PYRAMID_POLYGON);
         polygonSet.add(GeometryTestData.YZ_PYRAMID_POLYGON);
-        polygonSet.add(GeometryTestData.XZ_PYRAMID_POLYGON);
         polygonSet.add(GeometryTestData.XYZ_PYRAMID_POLYGON);
         SceneObject pyramid = new PolygonalSceneObject("Pyramid", polygonSet);
         assertEquals(GeometryTestData.PYRAMID, pyramid);

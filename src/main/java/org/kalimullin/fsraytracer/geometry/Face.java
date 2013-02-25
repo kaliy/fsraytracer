@@ -2,6 +2,7 @@ package org.kalimullin.fsraytracer.geometry;
 
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
+import org.kalimullin.fsraytracer.utils.CollectionUtils;
 
 import java.util.*;
 
@@ -10,13 +11,13 @@ import java.util.*;
  */
 public class Face implements Traceable {
 
-    private Set<Point> vertexSet;
+    private List<Point> vertexSet;
 
     public Face(Point point1, Point point2, Point point3) {
-        this(new HashSet<>(Arrays.asList(point1, point2, point3)));
+        this(Arrays.asList(point1, point2, point3));
     }
 
-    public Face(Set<Point> vertexSet) {
+    public Face(List<Point> vertexSet) {
         if (vertexSet.size() != 3)
             throw new IllegalArgumentException("Face should have three points");
         else
@@ -60,11 +61,11 @@ public class Face implements Traceable {
     }
 
     //<editor-fold desc="Getters and setters">
-    public Set<Point> getVertexSet() {
+    public List<Point> getVertexSet() {
         return vertexSet;
     }
 
-    public void setVertexSet(Set<Point> vertexSet) {
+    public void setVertexSet(List<Point> vertexSet) {
         this.vertexSet = vertexSet;
     }
     //</editor-fold>
@@ -76,8 +77,7 @@ public class Face implements Traceable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Face face = (Face) o;
-
-        if (vertexSet != null ? !vertexSet.equals(face.vertexSet) : face.vertexSet != null) return false;
+        if (vertexSet != null ? !CollectionUtils.isListEqualsIgnoreOrder(vertexSet, face.vertexSet) : face.vertexSet != null) return false;
 
         return true;
     }

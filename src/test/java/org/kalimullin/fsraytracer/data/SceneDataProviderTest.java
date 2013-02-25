@@ -32,12 +32,14 @@ public class SceneDataProviderTest extends Assert {
         Polygon polygon2 = new Polygon(face2);
         Polygon polygon3 = new Polygon(face3);
         Polygon polygon4 = new Polygon(face4);
-        sceneObjectSet.add(new PolygonalSceneObject("pyramid",
-                new HashSet<>(Arrays.asList(polygon1, polygon2, polygon3, polygon4))));
+        sceneObjectSet.add(new PolygonalSceneObject("pyramid", Arrays.asList(polygon1, polygon2, polygon3, polygon4)));
     }
 
     @Test
     public void testParsingData() {
+        System.out.println("s" + sceneObjectSet.hashCode());
+        System.out.println("o" + new SceneDataProvider(new File("src/test/resources/simpleScene.xml")).getSceneObjects().hashCode());
+        System.out.println("assert");
         assertEquals(sceneObjectSet, new SceneDataProvider(new File("src/test/resources/simpleScene.xml")).getSceneObjects());
     }
 }

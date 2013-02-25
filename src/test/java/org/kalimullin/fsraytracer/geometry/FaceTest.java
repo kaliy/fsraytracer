@@ -1,7 +1,6 @@
 package org.kalimullin.fsraytracer.geometry;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -10,7 +9,6 @@ import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 public class FaceTest extends Assert {
 
@@ -27,8 +25,8 @@ public class FaceTest extends Assert {
     @Test
     public void tetIllegalSetConstructor() {
         expectedException.expect(IllegalArgumentException.class);
-        new Face(new HashSet<>(Arrays.asList(GeometryTestData.POINT_ONE, GeometryTestData.POINT_ZERO,
-                GeometryTestData.POINT_TWO, GeometryTestData.POINT_THREE)));
+        new Face(Arrays.asList(GeometryTestData.POINT_ONE, GeometryTestData.POINT_ZERO,
+                GeometryTestData.POINT_TWO, GeometryTestData.POINT_THREE));
     }
 
     @Test
