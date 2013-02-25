@@ -7,8 +7,9 @@ import org.kalimullin.fsraytracer.GeometryTestData;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class PolygonTest extends Assert {
@@ -19,7 +20,7 @@ public class PolygonTest extends Assert {
     @Before
     public void setUp() {
         polygonOneFace = new Polygon(new Face(new Point(10,0,0), new Point(0,10,0), new Point(0,0,0)));
-        Set<Face> faceSet = new HashSet<>();
+        List<Face> faceSet = new ArrayList<>();
         faceSet.add(new Face(new Point(10,0,0), new Point(0,10,0), new Point(0,0,0)));
         faceSet.add(new Face(new Point(10,0,0), new Point(0,10,0), new Point(10,10,0)));
         polygonTwoFaces = new Polygon(faceSet);
@@ -27,8 +28,8 @@ public class PolygonTest extends Assert {
 
     @Test
     public void testEquals() {
-        assertEquals(new Polygon(new Face(new HashSet<>(Arrays.asList(
-                GeometryTestData.POINT_TWO, GeometryTestData.POINT_ZERO, GeometryTestData.POINT_ONE)))), GeometryTestData.POLYGON_ONE);
+        assertEquals(new Polygon(new Face(Arrays.asList(
+                GeometryTestData.POINT_TWO, GeometryTestData.POINT_ZERO, GeometryTestData.POINT_ONE))), GeometryTestData.POLYGON_ONE);
         assertNotEquals(GeometryTestData.POLYGON_ONE, GeometryTestData.POLYGON_TWO);
     }
 

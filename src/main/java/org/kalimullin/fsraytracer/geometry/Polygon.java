@@ -2,6 +2,7 @@ package org.kalimullin.fsraytracer.geometry;
 
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
+import org.kalimullin.fsraytracer.utils.CollectionUtils;
 
 import java.util.*;
 
@@ -11,16 +12,16 @@ import java.util.*;
 public class Polygon implements Traceable {
 
     public Polygon(Face face) {
-        Set<Face> faceSet1 = new HashSet<>();
+        List<Face> faceSet1 = new ArrayList<>();
         faceSet1.add(face);
         this.faceSet = faceSet1;
     }
 
-    public Polygon(Set<Face> faceSet) {
+    public Polygon(List<Face> faceSet) {
         this.faceSet = faceSet;
     }
 
-    private Set<Face> faceSet;
+    private List<Face> faceSet;
 
     @Override
     public HitPoint getHitPoint(Ray ray) {
@@ -34,11 +35,11 @@ public class Polygon implements Traceable {
     }
 
     //<editor-fold desc="Getters and setters">
-    public Set<Face> getFaceSet() {
+    public List<Face> getFaceSet() {
         return faceSet;
     }
 
-    public void setFaceSet(Set<Face> faceSet) {
+    public void setFaceSet(List<Face> faceSet) {
         this.faceSet = faceSet;
     }
     //</editor-fold>
@@ -51,7 +52,7 @@ public class Polygon implements Traceable {
 
         Polygon polygon = (Polygon) o;
 
-        if (faceSet != null ? !faceSet.equals(polygon.faceSet) : polygon.faceSet != null) return false;
+        if (faceSet != null ? !CollectionUtils.isListEqualsIgnoreOrder(faceSet, polygon.faceSet) : polygon.faceSet != null) return false;
 
         return true;
     }

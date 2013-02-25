@@ -15,7 +15,6 @@ import org.xml.sax.SAXException;
 import javax.xml.xpath.*;
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * XML SceneDataProvider
@@ -54,7 +53,7 @@ public class SceneDataProvider {
                 Node faceNode = objects.item(facesIndex);
                 String name = (String)xpath.evaluate("name", faceNode, XPathConstants.STRING);
                 int polygonsCount = ((Number)xpath.evaluate("count(face-id)", faceNode, XPathConstants.NUMBER)).intValue();
-                Set<Polygon> polygonSet = new HashSet<>();
+                List<Polygon> polygonSet = new ArrayList<>();
                 for(int polygonIndex = 1; polygonIndex <= polygonsCount; polygonIndex++) {
                     polygonSet.add(polygonMap.get(((Number) xpath.evaluate("(face-id)[" + polygonIndex + "]",
                             faceNode, XPathConstants.NUMBER)).intValue()));
@@ -115,7 +114,7 @@ public class SceneDataProvider {
                 faceNode.getParentNode().removeChild(faceNode);
                 int id = ((Number)xpath.evaluate("id", faceNode, XPathConstants.NUMBER)).intValue();
                 int pointsCount = ((Number)xpath.evaluate("count(point-id)", faceNode, XPathConstants.NUMBER)).intValue();
-                Set<Point> pointSet = new HashSet<>();
+                List<Point> pointSet = new ArrayList<>();
                 if (pointsCount == 3) {
                     for(int pointsIndex = 1; pointsIndex <= pointsCount; pointsIndex++) {
                         pointSet.add(pointMap.get(((Number)xpath.evaluate("(point-id)[" + pointsIndex + "]",

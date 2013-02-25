@@ -4,6 +4,7 @@ import org.kalimullin.fsraytracer.geometry.Polygon;
 import org.kalimullin.fsraytracer.geometry.Traceable;
 import org.kalimullin.fsraytracer.ray.HitPoint;
 import org.kalimullin.fsraytracer.ray.Ray;
+import org.kalimullin.fsraytracer.utils.CollectionUtils;
 
 import java.util.*;
 
@@ -14,15 +15,15 @@ import java.util.*;
 public class PolygonalSceneObject implements SceneObject {
 
     public PolygonalSceneObject(String name) {
-        this(name, new HashSet<Polygon>());
+        this(name, new ArrayList<Polygon>());
     }
 
-    public PolygonalSceneObject(String name, Set<Polygon> polygons) {
+    public PolygonalSceneObject(String name, List<Polygon> polygons) {
         this.name = name;
         this.polygons = polygons;
     }
 
-    private Set<Polygon> polygons;
+    private List<Polygon> polygons;
     private String name;
 
     @Override
@@ -35,11 +36,11 @@ public class PolygonalSceneObject implements SceneObject {
     }
 
     //<editor-fold desc="Getters and setters">
-    public Set<Polygon> getPolygons() {
+    public List<Polygon> getPolygons() {
         return polygons;
     }
 
-    public void setPolygons(Set<Polygon> polygons) {
+    public void setPolygons(List<Polygon> polygons) {
         this.polygons = polygons;
     }
 
@@ -62,7 +63,7 @@ public class PolygonalSceneObject implements SceneObject {
         PolygonalSceneObject that = (PolygonalSceneObject) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (polygons != null ? !polygons.equals(that.polygons) : that.polygons != null) return false;
+        if (polygons != null ? !CollectionUtils.isListEqualsIgnoreOrder(polygons, that.polygons) : that.polygons != null) return false;
 
         return true;
     }
@@ -71,6 +72,7 @@ public class PolygonalSceneObject implements SceneObject {
     public int hashCode() {
         int result = polygons != null ? polygons.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        System.out.println("res " + result);
         return result;
     }
     //</editor-fold>
