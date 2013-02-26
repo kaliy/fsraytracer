@@ -1,6 +1,7 @@
 package org.kalimullin.fsraytracer;
 
 import org.kalimullin.fsraytracer.data.SceneDataProvider;
+import org.kalimullin.fsraytracer.data.SceneDataSAXParser;
 import org.kalimullin.fsraytracer.scene.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,8 @@ public class Kernel {
     public static void main(String[] args) {
         File sceneFile = new File(args[0]);
         Scene scene = new Scene();
-        scene.setSceneObjects(new SceneDataProvider(sceneFile).getSceneObjects());
+        SceneDataProvider sceneDataProvider = new SceneDataSAXParser(sceneFile);
+        scene.setSceneObjects(sceneDataProvider.getSceneObjects());
         RayTracer.getInstance().setScene(scene);
         RayTracer.getInstance().startListening(new BufferedReader(new InputStreamReader(System.in)));
     }
