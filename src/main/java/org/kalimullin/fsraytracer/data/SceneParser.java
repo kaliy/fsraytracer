@@ -30,36 +30,5 @@ public class SceneParser {
      * @param file xml
      * @throws SAXException if file is not valid
      */
-    private void validate(File file) throws SAXException {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = sf.newSchema(new File("scene.xsd"));
-        Validator validator = schema.newValidator();
-        try {
-            // Actually double-creating StreamSource can cause performance problems while parsing really big files.
-            // If this is really big deal, this method should be inlined
-            validator.validate(new StreamSource(file));
-        } catch (IOException e) {
-            // TODO somehow get rid of IOException by refactoring all Source-related operations
-            logger.error("IOException while parsing XML: ", e);
-        }
-    }
-
-    /**
-     * Parsing Scene XML with validation.
-     * @param file input XML
-     * @return parsed Document
-     * @throws SAXException if XML is invalid
-     */
-    public Document getParsedDocument(File file) throws SAXException {
-        validate(file);
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            return documentBuilder.parse(file);
-        } catch (ParserConfigurationException | IOException e) {
-            logger.error("Exception while parsing file {}:", file, e);
-        }
-        return new DOMParser().getDocument();
-    }
 
 }

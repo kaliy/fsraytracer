@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.kalimullin.fsraytracer.data.SceneDataProvider;
+import org.kalimullin.fsraytracer.data.SceneDataXpathParser;
 import org.kalimullin.fsraytracer.geometry.Point;
 import org.kalimullin.fsraytracer.ray.HitData;
 import org.kalimullin.fsraytracer.ray.HitPoint;
@@ -18,7 +19,7 @@ public class SceneTest extends Assert {
     @Before
     public void setUp() {
         scene = new Scene();
-        scene.setSceneObjects(new SceneDataProvider(new File("src/test/resources/simpleScene.xml")).getSceneObjects());
+        scene.setSceneObjects(new SceneDataXpathParser(new File("src/test/resources/simpleScene.xml")).getSceneObjects());
     }
 
     @Test
