@@ -45,15 +45,20 @@ public class SceneDataSAXParser extends DefaultHandler implements SceneDataProvi
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        // main objects
-        if ("point".equalsIgnoreCase(qName))
-            currentPoint = new Point();
-        else if ("face".equalsIgnoreCase(qName))
-            currentFacePoints = new HashSet<>();
-        else if ("id".equalsIgnoreCase(qName))
-            currentId = null;
-        else if ("object".equalsIgnoreCase(qName))
-            polygonSet = new HashSet<>();
+        switch (qName.toLowerCase()) {
+            case "point":
+                currentPoint = new Point();
+                break;
+            case "face":
+                currentFacePoints = new HashSet<>();
+                break;
+            case "id":
+                currentId = null;
+                break;
+            case "object":
+                polygonSet = new HashSet<>();
+                break;
+        }
     }
 
     @Override
@@ -63,29 +68,40 @@ public class SceneDataSAXParser extends DefaultHandler implements SceneDataProvi
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if ("id".equalsIgnoreCase(qName))
-            currentId = Integer.parseInt(currentElementValue);
-        // Point parsing
-        else if ("x".equalsIgnoreCase(qName))
-            currentPoint.setX(Double.parseDouble(currentElementValue));
-        else if ("y".equalsIgnoreCase(qName))
-            currentPoint.setY(Double.parseDouble(currentElementValue));
-        else if ("z".equalsIgnoreCase(qName))
-            currentPoint.setZ(Double.parseDouble(currentElementValue));
-        else if ("point".equalsIgnoreCase(qName))
-            pointMap.put(currentId, currentPoint);
-        // Face parsing
-        else if ("point-id".equalsIgnoreCase(qName))
-            currentFacePoints.add(pointMap.get(Integer.parseInt(currentElementValue)));
-        else if ("face".equalsIgnoreCase(qName))
-            polygonMap.put(currentId, new Polygon(new Face(currentFacePoints)));
-        // SceneObject parsing
-        else if ("face-id".equalsIgnoreCase(qName))
-            polygonSet.add(polygonMap.get(Integer.parseInt(currentElementValue)));
-        else if ("name".equalsIgnoreCase(qName))
-            currentObjectName = currentElementValue;
-        else if ("object".equalsIgnoreCase(qName)) {
-            sceneObjectSet.add(new PolygonalSceneObject(currentObjectName, polygonSet));
+        switch (qName.toLowerCase()) {
+            case "id":
+                currentId = Integer.parseInt(currentElementValue);
+                break;
+            // Point parsing
+            case "x":
+                currentPoint.setX(Double.parseDouble(currentElementValue));
+                break;
+            case "y":
+                currentPoint.setY(Double.parseDouble(currentElementValue));
+                break;
+            case "z":
+                currentPoint.setZ(Double.parseDouble(currentElementValue));
+                break;
+            case "point":
+                pointMap.put(currentId, currentPoint);
+                break;
+            // Face parsing
+            case "point-id":
+                currentFacePoints.add(pointMap.get(Integer.parseInt(currentElementValue)));
+                break;
+            case "face":
+                polygonMap.put(currentId, new Polygon(new Face(currentFacePoints)));
+                break;
+            // SceneObject parsing
+            case "face-id":
+                polygonSet.add(polygonMap.get(Integer.parseInt(currentElementValue)));
+                break;
+            case "name":
+                currentObjectName = currentElementValue;
+                break;
+            case "object":
+                sceneObjectSet.add(new PolygonalSceneObject(currentObjectName, polygonSet));
+                break;
         }
     }
 
